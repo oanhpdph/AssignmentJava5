@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<div th:if="${session.listOrder!=null and not #lists.isEmpty(session.listOrder)}"
+     style="text-align: center">
+    <div class="row">
+        <h2 class="text-left col-md-3">[(#{custommer.ordered})]</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <b>Stt</b>
+        </div>
+        <div class="col-md-3">
+            <b>Ngày mua</b>
+        </div>
+        <div class="col-md-2">
+            <b>Tổng sản phẩm</b>
+        </div>
+        <div class="col-md-3">
+            <b>Tổng tiền</b>
+        </div>
+        <div class="col-md-2">
+            <b>Thao tác</b>
+        </div>
+    </div>
+    <div class="row" th:each=" listOrder : ${session.listOrder}"
+         style="margin-bottom: 10px; margin-top: 10px">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-2">
+                <b>[(${listOrderStat.index+1})]</b>
+            </div>
+            <div class="col-md-3">[(${
+                #calendars.format(listOrder.createDate,'dd/MM/yyyy HH:mm')})]
+            </div>
+            <div class="col-md-2">[(${#lists.size(listOrder.orderDetails)})]</div>
+            <div class="col-md-3">
+                <span th:text="${session.totalPrice[__${listOrderStat.index}__]}"> </span>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" data-toggle="collapse"
+                        th:data-target="|#colapse${listOrder.id}|">Chi tiết
+                </button>
+            </div>
+        </div>
+        <div th:id="|colapse${listOrder.id}|" class="collapse col-md-12"
+             style="background-color: #f1f1f1; padding-bottom: 10px">
+            <div class="row">
+                <div class="col-md-2"><b>Tên sản phẩm</b></div>
+                <div class="col-md-3"><b> Số lượng</b></div>
+                <div class="col-md-2"><b> Đơn giá</b></div>
+                <div class="col-md-3"><b> Thành tiền</b></div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row" th:each="orderDetail:${listOrder.orderDetails}"
+                 style="margin-bottom: 10px; margin-top: 10px">
+                <div class="col-md-2">[(${orderDetail.productId.name})]</div>
+                <div class="col-md-3">[(${orderDetail.quantity})]</div>
+                <div class="col-md-2">[(${orderDetail.productId.price})]</div>
+                <div class="col-md-3">[(${orderDetail.productId.price *
+                    orderDetail.quantity})]
+                </div>
+                <div class="col-md-2">
+                    <a class="operation"
+                       th:href="@{/custommer/{id}/product/detail(id=${orderDetail.productId.id})}">
+                        <button type="button" class="btn btn-success" id="updateButton"
+                                th:name="action" value="update">Xem sản phẩm
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div
+        th:unless="${session.listOrder != null and not #lists.isEmpty(session.listOrder)}">
+    <p class="text-center">Chưa mua sản phẩm nào</p>
+</div>

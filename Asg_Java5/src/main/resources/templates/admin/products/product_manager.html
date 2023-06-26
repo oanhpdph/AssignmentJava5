@@ -1,0 +1,123 @@
+<div class="container">
+	<h2>Quản lý sản phẩm</h2>
+
+	<!-- Form thêm/sửa/xóa sản phẩm -->
+
+	<form id="productForm" th:action="@{/admin/products}"
+		th:object="${product}" enctype="multipart/form-data" method="post">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					<div class="form-control" th:replace="~{common/inform.html}"></div>
+				</div>
+				<div class="form-group" hidden>
+					<input type="text" th:field="*{id}" th:name="id"
+						class="form-control" id="id">
+				</div>
+				<div class="form-group">
+					<label for="name">Tên sản phẩm:</label> <input type="text"
+						class="form-control" id="name" name="name" th:field="*{name}">
+
+					<span th:if="${#fields.hasErrors('name')}"><small
+						th:errors="*{name}" th:errorclass="text-danger"></small></span>
+				</div>
+				<div class="form-group">
+					<label for="image">Ảnh:</label>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="customFile"
+							name="imageUpload" accept="image/*"> <label
+							class="custom-file-label" for="customFile">Choose file</label> <span
+							th:if="${errorImage!= null}"><small
+							th:text="${errorImage}" th:class="text-danger"></small></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="price">Giá:</label> <input type="number"
+						class="form-control" id="price" name="price" required
+						th:field="*{price}"> <span
+						th:if="${#fields.hasErrors('price')}"><small
+						th:errors="*{price}" th:errorclass="text-danger"></small></span>
+				</div>
+				<div class="form-group">
+					<label for="available">Có sẵn:</label> <select class="form-control"
+						id="available" name="available" required th:field="*{available}">
+						<option value="true" th:selected="*{available==true}">Có</option>
+						<option value="false" th:selected="*{available ==false}">Không</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="category">Danh mục:</label> <select
+						class="form-control" id="category" name="categoryId" required
+						th:field="*{categoryId}">
+						<option value="-1">Chọn danh mục</option>
+						<option th:each="c:${session.categories}" th:value="${c.id}">[(${c.name})]</option>
+					</select> <span th:if="${#fields.hasErrors('categoryId')}"> <small
+						th:errors="*{categoryId}" th:errorclass="text-danger"></small>
+					</span>
+				</div>
+				<button type="submit" class="btn btn-primary" th:name="action"
+					value="insert" th:disabled='*{id != null}'>Thêm</button>
+				<button type="submit" class="btn btn-success" id="updateButton"
+					th:name="action" value="update" th:disabled='*{id == null}'>Cập
+					nhật</button>
+				<a th:href="@{/admin/product/{id}/delete(id=*{id})}">
+					<button type="button" class="btn btn-danger" id="deleteButton"
+						th:disabled='*{id == null}'>Xóa</button>
+				</a> <a th:href="@{/admin/products}" type="reset"
+					class="btn btn-secondary" th:text="#{lang.reset}"> </a>
+
+			</div>
+
+			<!-- Hiển thị ảnh -->
+			<div class="col-md-4">
+				<h2>Ảnh sản phẩm</h2>
+				<img th:src="@{'/images/'+*{image}}" id="productImage"
+					class="img-fluid">
+			</div>
+		</div>
+	</form>
+	<!-- Danh sách sản phẩm -->
+
+
+	<div class="row">
+		<div class=" container">
+			<h2>Danh sách sản phẩm</h2>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Stt</th>
+						<th>Tên sản phẩm</th>
+						<th>Giá</th>
+						<th>Ngày tạo</th>
+						<th>Có sẵn</th>
+						<th>Danh mục</th>
+						<th>Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product:${session.listProduct}">
+						<td>[(${productStat.index+1})]</td>
+						<td>[(${product.name})]</td>
+						<td>[(${product.price})]</td>
+						<td>[(${product.createDate})]</td>
+						<td>[(${product.available == true?"Có sẵn":"Không có"})]</td>
+						<td>[(${product.categoryId.name})]</td>
+						<td><a
+							th:href="@{/admin/product/{id}/edit(id=${product.id})}"> edit</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script>
+		// hiển thị tên file được chọn 
+		$(".custom-file-input").on(
+				"change",
+				function() {
+					var fileName = $(this).val().split("\\").pop();
+					$(this).siblings(".custom-file-label").addClass("selected")
+							.html(fileName);
+				});
+	</script>
+</div>
+</html>

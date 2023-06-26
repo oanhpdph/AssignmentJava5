@@ -1,0 +1,54 @@
+header .header-text {
+	text-align: center;
+	font-family: Arial, sans-serif;
+}
+
+
+body {
+	background-color: #f8f9fa;
+}
+
+.login-container {
+	margin-top: 100px;
+}
+
+.login-card {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-card-header {
+	background-color: #007bff;
+	color: #fff;
+	padding: 15px;
+}
+
+.login-card-title {
+	margin-bottom: 0;
+}
+
+.login-card-body {
+	padding: 20px;
+}
+
+.login-btn {
+	background-color: #007bff;
+	border-color: #007bff;
+	width: 45%
+}
+
+.login-btn:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+.forgot-pass {
+	font-style: italic;
+	font-size: 15px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: space-between;
+}

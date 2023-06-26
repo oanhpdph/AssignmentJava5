@@ -1,0 +1,66 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- sna pham xem gan day -->
+<section>
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-3 col-xs-6" th:each="listProduct: ${listAllProduct}">
+                    <div class="product">
+                        <div class="product-img">
+                            <img th:src="@{'/images/'+${listProduct.image}}" alt="">
+                            <!--                <div class="product-label">-->
+                            <!--                    <span class="sale">-30%</span>-->
+                            <!--                </div>-->
+                        </div>
+                        <div class="product-body">
+                            <p class="product-category">[(${listProduct.categoryId.name})]</p>
+                            <h3 class="product-name"><a href="#">[(${listProduct.name})]</a></h3>
+                            <h4 class="product-price"> [(${listProduct.price})]
+                                <!--                                <del class="product-old-price">$990.00</del>-->
+                            </h4>
+                            <div class="product-rating">
+                            </div>
+                            <div class="product-btns">
+                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
+                                </button>
+                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
+                                </button>
+
+                                <button class="quick-view">
+                                    <a th:href="@{/custommer/{id}/product/detail(id=${listProduct.id})}">
+                                        <i class="fa fa-eye">
+                                        </i><span class="tooltipp">quick view</span></a></button>
+                            </div>
+                        </div>
+                        <div class="add-to-cart">
+                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="newsletter store-filter clearfix">
+                    <ul class=" store-pagination">
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{'?pageNum='+1}">[(#{custommer.home.first})]</a></li>
+                        <th:block th:each="num: ${#numbers.sequence(1,totalPage)}">
+                            <li class="page-item"><a class="page-link"
+                                                     th:href="@{'?pageNum='+${num}}" th:text="${num}"></a></li>
+                        </th:block>
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{'?pageNum='+${totalPage}}">[(#{custommer.home.last})]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>

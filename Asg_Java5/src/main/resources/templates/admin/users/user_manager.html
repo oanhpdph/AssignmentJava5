@@ -1,0 +1,118 @@
+
+<div class="container">
+	<h1>User Manager</h1>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-container">
+
+				<form th:action="@{/admin/usermanager}" method="post"
+					th:object="${user}">
+					<div class="form-group">
+						<div class="form-control" th:replace="~{common/inform.html}"></div>
+					</div>
+					<div class="form-group" hidden>
+						<input type="text" th:field="*{id}" th:name="id"
+							class="form-control" id="id">
+					</div>
+					<div class="form-group">
+						<label for="username" th:text="|#{'user.username'}:|"></label> <input
+							type="text" th:field="*{username}" th:name="username"
+							class="form-control" id="username"> <span
+							th:if="${#fields.hasErrors('username')}"> <small
+							th:errors="*{username}" th:errorclass="text-danger"></small>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="password">Password:</label> <input type="password"
+							th:field="*{password}" th;name="password" class="form-control"
+							id="password" disabled="disabled"> <span
+							th:if="${#fields.hasErrors('password')}"> <small
+							th:errors="*{password}" th:errorclass="text-danger"></small>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="fullname">Full Name:</label> <input type="text"
+							th:field="*{fullname}" th:name="fullname" class="form-control"
+							id="fullname"> <span
+							th:if="${#fields.hasErrors('fullname')}"> <small
+							th:errors="*{fullname}" th:errorclass="text-danger"></small>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="email">Email:</label> <input type="email"
+							th:name="email" th:field="*{email}" class="form-control"
+							id="email"><span th:if="${#fields.hasErrors('email')}">
+							<small th:errors="*{email}" th:errorclass="text-danger"></small>
+						</span>
+					</div>
+					<div class="form-group">
+						<div
+							class="form-check custom-control custom-radio custom-control-inline">
+							<input class="custom-control-input" type="radio" name="activated"
+								th:field="*{activated}" id="exampleRadios1" value="true" checked>
+							<label class="custom-control-label" for="exampleRadios1"
+								th:text="#{user.active}"></label>
+						</div>
+						<div
+							class="form-check custom-control custom-radio custom-control-inline">
+							<input class="custom-control-input" type="radio" name="activated"
+								th:field="*{activated}" id="exampleRadios2" value="false">
+							<label class="custom-control-label" for="exampleRadios2"
+								th:text="#{user.inactive}"> </label>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary" th:name="update"
+						value="update" th:text="#{lang.save}" th:disabled='*{id == null}'></button>
+						
+						
+					<a th:href="@{'/admin/delete?id='+*{id}}" type="submit">
+						<button class="btn btn-primary" th:text="#{lang.delete}"
+							th:disabled='*{id == null}'></button>
+					</a> 
+					<a th:href="@{/admin/usermanager}" type="reset" class="btn btn-secondary" th:text="#{lang.reset}"> 
+					</a>
+				</form>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<th:block th:if="${session.totalPage>1}">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-end">
+						<th:block th:each="num: ${#numbers.sequence(1,session.totalPage)}">
+							<li class="page-item"><a class="page-link"
+								th:href="@{'/admin/usermanager?pageNum=' + ${num}}"
+								th:text="${num}"></a></li>
+						</th:block>
+					</ul>
+				</nav>
+			</th:block>
+			<div class="table-container">
+				<table>
+					<thead>
+						<tr>
+							<th>Index</th>
+							<th th:text="#{user.username}">Username</th>
+
+							<th>Email</th>
+							<th>Activated</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user: ${session.listUser}" class="rowtable">
+							<td th:text="${userStat.index +1}" class="rowitem"></td>
+							<td th:text="${user.username}" class="rowitem"></td>
+
+							<td th:text="${user.email}" class="rowitem"></td>
+							<td th:if="${user.activated==true}" class="rowitem">Active</td>
+							<td th:if="${user.activated==false}" class="rowitem">Inactive</td>
+							<td><span th:if="${user.admin==false}"> <a
+									th:href="@{'/admin/edit?id='+${user.id}}" class="btn btn-link">Edit</a></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

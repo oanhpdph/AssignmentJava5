@@ -1,0 +1,9 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:if="${message!=null}">
+	<div class="row" th:fragment="content">
+		<div class="container">
+			<div th:text="${message}" class="text-danger"></div>
+		</div>
+	</div>
+</div>
+</html>

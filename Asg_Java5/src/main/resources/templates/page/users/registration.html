@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Đăng ký</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/users/registration.css">
+</head>
+<body>
+	<div class="container">
+		<div class="registration-form">
+			<h2 class="title">Đăng ký</h2>
+			<form th:action="@{registration}" th:object="${registration}"
+				method="post">
+				<div th:replace="~{common/inform.html}"></div>
+				<div class="form-group">
+					<label for="username">Username:</label> <input type="text"
+						class="form-control" id="username"
+						placeholder="Nhập tên người dùng" name="username"> <span
+						th:if="${#fields.hasErrors('username')}"> <small
+						th:errors="*{username}" class="text-danger"></small></span>
+				</div>
+				<div class="form-group">
+					<label for="fullname">Fullname:</label> <input type="text"
+						class="form-control" id="fullname" placeholder="Nhập họ và tên"
+						name="fullname"> <span
+						th:if="${#fields.hasErrors('fullname')}"><small
+						th:errors="*{fullname}" class="text-danger"></small></span>
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label> <input type="password"
+						class="form-control" id="password" placeholder="Nhập mật khẩu"
+						name="password"> <span
+						th:if="${#fields.hasErrors('password')}"> <small
+						th:errors="*{password}" class="text-danger"></small>
+					</span>
+				</div>
+				<div class="form-group">
+					<label for="email">Email:</label> <input type="email"
+						class="form-control" id="email" placeholder="Nhập địa chỉ email"
+						name="email"> <span th:if="${#fields.hasErrors('email')}">
+						<small th:errors="*{email}" class="text-danger"></small>
+					</span>
+				</div>
+				<div class="button-container col-6">
+					<button type="submit" class="btn btn-primary">Đăng ký</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

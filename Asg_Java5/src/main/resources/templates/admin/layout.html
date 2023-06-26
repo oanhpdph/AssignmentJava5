@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Assignment Admin Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="/css/admin/layout.css">
+</head>
+<body>
+	<div class="container-fluid body-container">
+		<div class="row content">
+			<div class="col-sm-2 ">
+				<h2>Admin page</h2>
+				<ul class="nav nav-pills  flex-column">
+					<li class="nav-item"><a
+						th:class="|nav-link ${session.active=='user' ?'active':''}|"
+						th:href="@{/admin/usermanager}" th:text="#{lang.user}"></a></li>
+					<li class="nav-item"><a
+						th:class="|nav-link ${session.active=='products' ? 'active':''}|"
+						th:href="@{/admin/products}" th:text="#{lang.product}"></a></li>
+
+					<li><a class="nav-link" href="#ngonngu" data-toggle="collapse"
+						th:text="#{lang.language}"></a>
+						<ul id="ngonngu" class="panel-collapse collapse list-group">
+							<li class="panel-footer list-group-item"><a
+								th:href="@{?lang=vi}" th:text="#{lang.vietnamese}"></a></li>
+							<li class="panel-footer list-group-item"><a
+								th:href="@{?lang=en}" th:text="#{lang.english}"></a></li>
+						</ul></li>
+
+					<li th:if="${session.accountLogged != null}"><a
+						class="nav-link" href="#taikhoan" data-toggle="collapse"> <span
+							th:if="${session.accountLogged != null}"> <span
+								th:text="${session.accountLogged.username}"></span>
+						</span>
+					</a>
+						<ul id="taikhoan" class="panel-collapse collapse list-group">
+							<li class="panel-footer list-group-item"
+								sec:authorize="isAuthenticated()"><a
+								th:href="@{/assignment/logout}" type="button">Đăng xuất</a></li>
+							<li class="panel-footer list-group-item"><a href="#">Chỉnh
+									sửa</a></li>
+						</ul></li>
+					<li>
+						<ul class="nav navbar-nav navbar-center"
+							th:if="${session.accountLogged == null}">
+							<li><a href="@{/assignment/registration}"> <span
+									class="glyphicon glyphicon-user"></span> Sign Up
+							</a></li>
+							<li><a th:href="@{/assignment/login}"><span
+									class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						</ul>
+					</li>
+				</ul>
+				<br>
+			</div>
+			<div class="col-sm-10 content-container">
+				<div class="container">
+					<th:block th:replace="~{${session.view}}"></th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron text-center" style="margin-bottom: 0">
+		<p>Footer</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+.container {
+	margin-top: 30px;
+}
+
+body {
+	font-size: 17px;
+}
+
+.form-container {
+	max-width: 300px;
+	margin-bottom: 30px;
+}
+
+.table-container {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+th, td {
+	padding: 8px;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
+.btn-container {
+	text-align: right;
+	margin-bottom: 20px;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+.row.content {
+	height: auto !important;
+}
+/* Set gray background color and 100% height */
+.sidenav {
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+.container-fluid {
+	overflow-x: hidden;
+}
+
+td.rowitem {
+	white-space: nowrap;
+}
+
+tr.rowtable:hover {
+	background-color: #DDDDDD;
+}
+
+.active-radio {
+	font-size: 15px
+}
+
+.body-container {
+	background-color: #f1f1f1
+}
+
+.content-container {
+	background-color: white;
+}

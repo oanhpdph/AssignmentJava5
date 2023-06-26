@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<div class="container"
+     th:if="${session.listCart!=null and not #lists.isEmpty(session.listCart)}">
+    <h2 class="text-center">[(#{custommer.cart})]</h2>
+    <form th:action="@{/custommer/cart}" method="post">
+        <table class="table-hover table"
+               style="background-color: #e9ecef; box-shadow: 1px 1px 1px 1px #888888;">
+            <thead>
+            <tr>
+                <th><input type="checkbox"
+                           class=" custom-control custom-checkbox " id="customCheck"
+                           name="example1"></th>
+                <th class="text-center">Sản phẩm</th>
+                <th class="text-center">Giá</th>
+                <th class="text-center">Số lượng</th>
+                <th class="text-center">Số tiền</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+            </thead>
+            <tbody class="cart-item">
+            <tr th:each="listCart:${session.listCart}">
+                <th scope="row"><input type="checkbox"
+                                       class=" custom-control custom-checkbox " id=""
+                                       name="checkCart" th:value="${listCart.id}"></th>
+                <td class="text-center">[(${listCart.productId.name})]</td>
+                <td class="text-center">[(${listCart.productId.price})]</td>
+                <td class="text-center">[(${listCart.quantity})]</td>
+                <td class="text-center">[(${listCart.price})]</td>
+                <td class="text-center"><a class="operation"
+                                           th:href="@{/custommer/checkout/{id}/order(id=${listCart.id})}">
+                    <button type="button" class="btn btn-primary" th:name="action"
+                            value="insert">Mua ngay
+                    </button>
+                </a> <a class="operation"
+                        th:href="@{/custommer/{id}/product/detail(id=${listCart.productId.id})}">
+                    <button type="button" class="btn btn-success" id="updateButton"
+                            th:name="action" value="update">Chi tiết
+                    </button>
+                </a> <a th:href="@{/custommer/cart/{id}/delete(id=${listCart.id})}">
+                    <button type="button" class="btn btn-danger" id="deleteButton">Xóa</button>
+                </a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <div th:replace="~{/common/inform.html}"></div>
+<!--            <a th:href="@{/custommer/checkout/order}">-->
+                <button type="submit" class="btn btn-primary" th:name="OrderOrDelete"
+                        value="order">Mua các sản phẩm đã chọn
+                </button>
+<!--            </a>-->
+            <a>
+                <button type="submit" th:name="OrderOrDelete" value="delete"
+                        class="btn btn-danger">Xóa các sản phẩm
+                    đã chọn
+                </button>
+            </a>
+        </div>
+    </form>
+</div>
+<div
+        th:unless="${session.listCart!=null and not #lists.isEmpty(session.listCart)}">
+    <p class="text-center">Giỏ hàng trống</p>
+</div>
+</html>

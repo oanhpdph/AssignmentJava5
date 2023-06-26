@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Xác thực</title>
+<link rel="stylesheet" href="/css/users/accuracy.css">
+</head>
+<body>
+	<div class="verification-page">
+		<h2>Nhập mã xác thực</h2>
+		<form th:action="@{accuracy}" method="post">
+			<div class="form-group">
+				<input type="text" id="verification-code" name="verification-code"
+					placeholder="Nhập mã xác thực" required>
+			</div>
+			<button type="submit">Xác thực</button>
+		</form>
+	</div>
+</body>
+</html>
